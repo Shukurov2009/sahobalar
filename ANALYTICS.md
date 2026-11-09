@@ -53,7 +53,37 @@ Vercel dashboardida:
 
 Upstash bepul tarifi bu sayt uchun yetarli.
 
-## 3. Gmail App Password
+## 3. Gmail webhook (tavsiya) yoki App Password
+
+### 3.1 Google Apps Script webhook — sayt va bot uchun bitta
+
+Render bepul tarifida SMTP portlari yopiq. Sayt Vercel'da ishlaydi, lekin ikkala
+loyiha uchun bitta webhook ishlatish qulay.
+
+1. https://script.google.com → **New project**.
+2. `gmail_webhook.gs` faylidagi kodni **Code.gs** ichiga qo'ying.
+3. Kodda `SECRET = 'BU_YERGA_UZUN_TASODIFIY_KALIT'` qatorini uzun tasodifiy
+   kalitga o'zgartiring.
+4. **Deploy** → **New deployment** → **Web app**:
+   - **Execute as:** `Me`
+   - **Who has access:** `Anyone`
+
+   Birinchi marta Google ruxsat so'raydi — **Allow** bosing.
+5. Chiqqan **URL** ni nusxalang.
+6. Vercel → **Environment Variables** ga qo'shing:
+
+   | Nomi | Qiymati |
+   |---|---|
+   | `GMAIL_WEBHOOK_URL` | Apps Script web app URL |
+   | `GMAIL_WEBHOOK_SECRET` | `SECRET` bilan bir xil matn |
+   | `REPORT_TO` | hisobot keladigan Gmail |
+
+7. **Deployments → Redeploy** qiling.
+
+Tekshirish: URL ni brauzerda ochsangiz `{"ok":true,...}` chiqadi. Xat
+yuborilganda webhook `{"ok":true,"sent":true}` qaytaradi.
+
+### 3.2 Gmail App Password (muqobil, faqat SMTP uchun)
 
 Oddiy Gmail paroli SMTP uchun ishlamaydi.
 
@@ -68,12 +98,17 @@ Vercel → loyiha → **Settings** → **Environment Variables**:
 
 | Nomi | Qiymati |
 |---|---|
-| `GMAIL_USER` | hisobingiz@gmail.com |
-| `GMAIL_APP_PASSWORD` | 16 belgili App Password |
-| `REPORT_TO` | hisobot keladigan manzil (odatda o'sha Gmail) |
+| `GMAIL_WEBHOOK_URL` | Apps Script URL (tavsiya etiladi) |
+| `GMAIL_WEBHOOK_SECRET` | Apps Scriptdagi `SECRET` |
+| `REPORT_TO` | hisobot keladigan manzil |
+| `GMAIL_USER` | SMTP uchun (ixtiyoriy) |
+| `GMAIL_APP_PASSWORD` | 16 belgili App Password (ixtiyoriy) |
 | `REPORT_KEY` | dashboard uchun uzun tasodifiy kalit |
 | `CRON_SECRET` | cron uchun yana bir uzun tasodifiy kalit |
 | `SITE_URL` | `https://sahobalar.vercel.app` (ixtiyoriy) |
+
+`GMAIL_WEBHOOK_URL` va `GMAIL_WEBHOOK_SECRET` o'rnatilsa, `GMAIL_USER` va
+`GMAIL_APP_PASSWORD` shart emas.
 
 `REPORT_KEY` va `CRON_SECRET` ni taxmin qilib bo'lmaydigan qilib yarating, masalan:
 
