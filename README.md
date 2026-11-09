@@ -22,11 +22,17 @@ Alternativ: `index.html` faylini to'g'ridan-to'g'ri brauzerda ochish ham mumkin 
 sahobalar/
   index.html
   start.bat
-  server.js
+  server.js            — lokal server (statik + /api)
+  api/
+    track.js           — tashrifni qabul qilish
+    report.js          — dashboard va qo'lda email
+    cron.js            — kunlik email (Vercel Cron)
+  lib/                 — geolokatsiya, Redis, Gmail, hisobot
   css/
     base.css
     pages.css
   js/
+    analytics.js       — brauzerdagi tashrif yig'uvchi
     data-battles.js    — janglar, xronologiya, manbalar
     data-sahaba-1.js   — sahobalar (1-qism)
     data-sahaba-2.js   — sahobalar (2-qism)
@@ -37,6 +43,7 @@ sahobalar/
     fonts/             — mahalliy shriftlar
     pattern-star.svg
     favicon.svg
+  ANALYTICS.md         — analitika o'rnatish yo'riqnomasi
 ```
 
 ## Imkoniyatlar
@@ -50,6 +57,8 @@ sahobalar/
 - Klassik manbalar ro'yxati va ilmiy izohlar
 - Mobil qurilmalarga moslashgan dizayn
 - Internetsiz ishlaydi; tashqi CDN ishlatilmaydi
+- **Tashriflar analitikasi**: davlat, viloyat, qurilma modeli va kunlik Gmail hisoboti
+  ([ANALYTICS.md](ANALYTICS.md))
 
 ## Ma'lumot qo'shish
 

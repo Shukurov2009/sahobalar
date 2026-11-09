@@ -1,0 +1,12 @@
+{
+  "name": "sahobalar",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sahobalar sayti va tashriflar analitikasi",
+  "dependencies": {
+    "nodemailer": "^7.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
